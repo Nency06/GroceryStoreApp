@@ -1,4 +1,6 @@
 from datetime import datetime
+from functools import total_ordering
+
 from sql_connection import get_sql_connection
 
 def insert_order(connection, order):
@@ -36,9 +38,12 @@ def get_all_orders(connection):
     cursor.execute(query)
 
     response = []
-    for (order_id,) in cursor:
+    for (order_id, customer_name, total, datetime) in cursor:
         response.append({
-
+            'order_id': order_id,
+            'customer_name': customer_name,
+            'total': total,
+            'datetime': datetime,
         })
     return response
 
